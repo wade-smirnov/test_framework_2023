@@ -9,8 +9,6 @@ Sample test framework 2023
 #### Dev requirements can be installed via
 ```pip install -r requirements_dev.txt```
 
-
-
 ***
 ### Running tests:
 ```python3 -m pytest tests```
