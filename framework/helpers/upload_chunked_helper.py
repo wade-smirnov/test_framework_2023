@@ -1,4 +1,4 @@
-from framework.clients.co_client import Client
+from framework.clients.d_client import Client
 from framework.clients.websocket_client import WebsocketClient
 from framework.helpers.common_helpers import get_mediatype
 from framework.helpers.upload_resumable_helper import UploadResumableHelper

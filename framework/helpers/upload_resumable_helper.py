@@ -2,8 +2,8 @@ import os
 import time
 from random import randint
 from retry import retry
-from framework.clients.bclient import BClient
-from framework.clients.co_client import Client
+from framework.clients.b_client import BClient
+from framework.clients.d_client import Client
 from framework.helpers.common_helpers import get_mediatype
 from framework.utils import generate_file_name
 from framework.verificators.resumable_upload_verificator import (

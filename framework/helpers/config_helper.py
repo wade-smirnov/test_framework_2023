@@ -133,8 +133,8 @@ def write_env_properties(data: dict, mode: str = "w") -> None:
 
 
 def update_clients_from_config() -> None:
-    from framework.clients.bclient import BClient
-    from framework.clients.co_client import Client
+    from framework.clients.b_client import BClient
+    from framework.clients.d_client import Client
     from framework.clients.etcd_client import EtcdClient
     from framework.clients.euclid_client import EuclidClient
     from framework.clients.co_admin_client import DClient

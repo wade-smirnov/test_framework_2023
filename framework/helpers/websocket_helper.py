@@ -5,7 +5,7 @@ import time
 import zlib
 import yaml
 from threading import Thread
-from framework.clients.co_client import Client
+from framework.clients.d_client import Client
 from framework.clients.websocket_client import WebsocketClient
 
 LOGGER = logging.getLogger(__name__)

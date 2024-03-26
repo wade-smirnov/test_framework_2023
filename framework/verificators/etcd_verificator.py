@@ -1,4 +1,4 @@
-from framework.clients.co_client import Client
+from framework.clients.d_client import Client
 
 
 class EtcdVerificator:
