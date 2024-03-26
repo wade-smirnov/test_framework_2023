@@ -27,7 +27,7 @@ Sample test framework 2023
 ```--admin_password```  
 
 
-### Example:
+### example:
 ```python3 -m pytest --launch local -k 'not complex_case' --stand st_name --keycloak_password 1234 tests/file_upload```
 
 #### Tests are separated into two categories: 

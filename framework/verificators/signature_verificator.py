@@ -61,19 +61,19 @@ class SignatureVerificator:
     ):
         response = Client.get_file_by_id(file_id)
         assert (
-            response.json().get("file").get("signatureInfo").get("hasEmbedded") is True
+            response.json().get("file").get("signatureInfo").get("hasembedded") is True
         ), "File's embedded signature is missing"
 
         files = Client.get_files()
         for file in files:
             if file.get("id") == Client.created_file_id:
                 assert (
-                    file.get("id").get("signatureInfo").get("hasEmbedded") is True
+                    file.get("id").get("signatureInfo").get("hasembedded") is True
                 ), "File signature is missing in v1/files"
 
         search_files = Client.get_files_search(dir_id, filename)
         for file in search_files:
             if file.get("id") == Client.created_file_id:
                 assert (
-                    file.get("id").get("signatureInfo").get("hasEmbedded") is True
+                    file.get("id").get("signatureInfo").get("hasembedded") is True
                 ), "File signature is missing in v1/files/search"

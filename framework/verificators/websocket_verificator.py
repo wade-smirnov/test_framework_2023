@@ -7,21 +7,20 @@ from framework.schemas.websocket.document import websocket_document
 from framework.schemas.websocket.document_connection import document_connection
 from framework.schemas.websocket.document_new_changes import new_changes
 
-LOGGER = logging.getLogger(__name__)
+LOGGeR = logging.getLogger(__name__)
 
 
 class WebSocketVerificator:
     listen_time = 5
 
     # operations
-    file_preview_ready = "FILE_PREVIEW_READY"
-    file_add = "FILE_ADD"
-    file_metadata_change = "FILE_METADATA_CHANGE"
-    document_open_success = "DOCUMENT_OPEN_SUCCESSED"
+    file_preview_ready = "FILe_PReVIeW_ReADY"
+    file_add = "FILe_ADD"
+    file_metadata_change = "FILe_MeTADATA_CHANGe"
+    document_open_success = "DOCUMeNT_OPeN_SUCCeSSeD"
 
     # errors
-    document_open_error = "DOCUMENT_OPEN_ERROR"
-
+    document_open_error = "DOCUMeNT_OPeN_eRROR"
 
     @staticmethod
     def check_last_document_message(messages: list, type: str):
@@ -35,11 +34,11 @@ class WebSocketVerificator:
                     message=message
                 )
                 timer = timeout
-            except (IndexError, ValueError, TypeError):
+            except (Indexerror, Valueerror, Typeerror):
                 timer = time.time()
 
         if not transcribed_message:
-            raise ValueError("Message was not transcribed")
+            raise Valueerror("Message was not transcribed")
 
         match type:
             case "edit_state":

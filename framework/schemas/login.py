@@ -1,15 +1,15 @@
-co_auth_login = {
+d_auth_login = {
     "type": "object",
     "properties": {
         "success": {
-            "nonEmptyString": {
+            "nonemptyString": {
                 "type": "string",
                 "minLength": 1,
                 "not": {"enum": ["null"]},
             }
         },
         "token": {
-            "nonEmptyString": {
+            "nonemptyString": {
                 "type": "string",
                 "minLength": 10,
                 "not": {"enum": ["null"]},

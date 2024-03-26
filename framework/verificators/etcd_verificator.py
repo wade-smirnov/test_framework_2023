@@ -1,7 +1,7 @@
 from framework.clients.d_client import Client
 
 
-class EtcdVerificator:
+class etcdVerificator:
     @staticmethod
     def check_stand_status() -> None:
         core_status_data = Client.get_core_status()

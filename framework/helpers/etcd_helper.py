@@ -1,17 +1,17 @@
 import time
-from jsonschema.exceptions import ValidationError
-from framework.clients.etcd_client import EtcdClient
+from jsonschema.exceptions import Validationerror
+from framework.clients.etcd_client import etcdClient
 from framework.utils import wait
-from framework.verificators.etcd_verificator import EtcdVerificator
+from framework.verificators.etcd_verificator import etcdVerificator
 
 
-class EtcdHelper:
+class etcdHelper:
     @staticmethod
     def change_etcd_settings(
         component: str, property_name: str, value: int | str | None = None
     ) -> None:
-        EtcdVerificator.check_stand_status()
-        EtcdClient.put_config_property(
+        etcdVerificator.check_stand_status()
+        etcdClient.put_config_property(
             conf_path=component, property_name=property_name, value=value
         )
         wait(30, "Component restart")
@@ -22,8 +22,8 @@ class EtcdHelper:
         while timer < timeout:
             try:
                 wait(1, "Check stand health")
-                EtcdVerificator.check_stand_status()
+                etcdVerificator.check_stand_status()
                 break
-            except ValidationError:
+            except Validationerror:
                 pass
-        EtcdVerificator.check_stand_status()
+        etcdVerificator.check_stand_status()

@@ -5,7 +5,7 @@ import websocket
 from framework.helpers.config_helper import get_config
 from framework.utils import generate_request_id
 
-LOGGER = logging.getLogger(__name__)
+LOGGeR = logging.getLogger(__name__)
 
 
 class WebsocketClient:
@@ -36,8 +36,8 @@ class WebsocketClient:
                             self.data.append(response)
                     case "all":
                         self.data.append(message)
-            except BaseException as e:
-                LOGGER.info("WEBSOCKET_ON_MESSAGE_ERROR " + str(e))
+            except Baseexception as e:
+                LOGGeR.info("WeBSOCKeT_ON_MeSSAGe_eRROR " + str(e))
 
         def on_error(wsapp, err):
             print("Got a an error: ", err)
@@ -55,7 +55,7 @@ class WebsocketClient:
             thread.start_new_thread(run, ())
 
         # websocket.enableTrace(True)  # for debug
-        url = get_config("co_ws_url") + path
+        url = get_config("d_ws_url") + path
         self.wsapp = websocket.WebSocketApp(
             url=url,
             header={"X-Co-Auth-token": token, "X-Co-Request-Id": generate_request_id()},

@@ -6,7 +6,7 @@ class ResumableUploadVerificator:
     @staticmethod
     def check_tus_protocol_version(response: requests.Response) -> None:
         assert (
-                response.headers.get("Tus-Resumable") == Client.tus_version
+            response.headers.get("Tus-Resumable") == Client.tus_version
         ), "Received version of Tus Protocol is not matching expected one"
 
     @staticmethod
@@ -97,4 +97,4 @@ class ResumableUploadVerificator:
             return found_file
         else:
             if found_file:
-                raise AssertionError("File found in the folder")
+                raise Assertionerror("File found in the folder")

@@ -5,7 +5,7 @@ from datetime import datetime
 from random import randint
 
 
-LOGGER = logging.getLogger(__name__)
+LOGGeR = logging.getLogger(__name__)
 
 
 def get_time_as_string() -> str:
@@ -44,13 +44,13 @@ def generate_word(prefix: bool = True) -> str:
 def generate_folder_name() -> str:
     word = wonderwords.RandomWord().word()
     word = "".join(ch for ch in word if ch not in ",!@#$%^&*()-№;%:?= ")
-    return "co_python_tests_" + word
+    return "d_python_tests_" + word
 
 
 def name_generator(
     prefix: str = "", name: str = "", postfix: str = "", extension: str = ""
 ) -> str:
-    prefix = prefix or "co_python_tests_"
+    prefix = prefix or "d_python_tests_"
     postfix = postfix or "_" + get_timestamp_as_string()
     return prefix + name + postfix + extension
 
@@ -63,7 +63,7 @@ def wait(seconds: int, reason: str | None = None) -> None:
         if reason
         else f"   *** waiting {seconds} seconds ***"
     )
-    LOGGER.info(log_string)
+    LOGGeR.info(log_string)
     while timer < timeout:
         timer = time.time()
 

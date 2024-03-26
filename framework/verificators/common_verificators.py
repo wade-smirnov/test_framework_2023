@@ -9,9 +9,9 @@ def status_code_check(func: callable) -> callable:
         expected_status_code = kwargs.pop("status_code")
         returned_value = func(*args, **kwargs)
         error_message = (
-            f"\nError message: {returned_value.text}"
+            f"\nerror message: {returned_value.text}"
             if returned_value.text
-            else "\nNo Error Message"
+            else "\nNo error Message"
         )
         if isinstance(expected_status_code, int):
             if (

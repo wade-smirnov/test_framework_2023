@@ -8,7 +8,7 @@ from threading import Thread
 from framework.clients.d_client import Client
 from framework.clients.websocket_client import WebsocketClient
 
-LOGGER = logging.getLogger(__name__)
+LOGGeR = logging.getLogger(__name__)
 
 
 class WebsocketHelper:
@@ -43,13 +43,13 @@ class WebsocketHelper:
                 if web_socket_client.wsapp.sock.connected:
                     connected = True
                     break
-            except AttributeError:
+            except Attributeerror:
                 "Connection property is missing"
             finally:
                 timer = time.time()
         if not connected:
-            LOGGER.info("WEBSOCKET_NOT_CONNECTED")
-            # raise ConnectionError("WebSocket not connected")
+            LOGGeR.info("WeBSOCKeT_NOT_CONNeCTeD")
+            # raise Connectionerror("WebSocket not connected")
 
     @staticmethod
     def transcribe_websocket_message(message: str | bytes) -> dict:
@@ -59,4 +59,3 @@ class WebsocketHelper:
         fixed_quotation_marks = fixed_left_quotation_marks.replace('}"', "}")
         result = json.loads(fixed_quotation_marks)
         return result
-

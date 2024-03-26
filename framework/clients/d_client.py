@@ -10,26 +10,26 @@ class Client(ApiClient):
     token: str
     auth_url: str
     root_dir_id: str
-    co_user: str
-    co_password: str
+    d_user: str
+    d_password: str
     request_id: str
     created_dir_id: str
     created_file_id: str
 
     @staticmethod
     def update_data_from_config() -> None:
-        Client.url = get_config("co_api_url")
-        Client.auth_url = get_config("co_auth_url")
-        Client.co_internal_sso_username = get_config("co_internal_sso_username")
-        Client.co_internal_sso_password = get_config("co_internal_sso_password")
-        Client.co_user = get_config("euclid_user_login")
-        Client.co_password = get_config("euclid_admin_password")
+        Client.url = get_config("d_api_url")
+        Client.auth_url = get_config("d_auth_url")
+        Client.d_internal_sso_username = get_config("d_internal_sso_username")
+        Client.d_internal_sso_password = get_config("d_internal_sso_password")
+        Client.d_user = get_config("e_user_login")
+        Client.d_password = get_config("e_admin_password")
 
     @staticmethod
     def post_auth(
         login: str | None = None, password: str | None = None, status_code: int = 200
     ) -> dict:
-        login = login or get_config("euclid_user_login")
+        login = login or get_config("e_user_login")
         password = password or get_config("tenant_user_password")
         path = "/login"
         url = Client.auth_url + path
@@ -86,8 +86,8 @@ class Client(ApiClient):
     def get_core_status(status_code: int = 200) -> dict:
         path = ":8443/api/manage/core/status"
         Client.session.auth = (
-            Client.co_internal_sso_username,
-            Client.co_internal_sso_password,
+            Client.d_internal_sso_username,
+            Client.d_internal_sso_password,
         )
         response = Client.get(path=path, status_code=status_code)
         Client.session.auth = None

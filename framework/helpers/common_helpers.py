@@ -20,8 +20,8 @@ def decode_metadata_from_base64(metadata: str) -> dict:
     result = dict()
     try:
         splitted_data = metadata.split(",")
-    except ValueError:
-        raise ValueError("Wrong decoded metadata format")
+    except Valueerror:
+        raise Valueerror("Wrong decoded metadata format")
     for element in splitted_data:
         temp = element.split(" ")
         result[temp[0]] = base64.b64decode(temp[1]).decode("ascii")
@@ -40,7 +40,7 @@ def remove_temp_data(config_status_file_path: Path, config_data: dict) -> None:
 def remove_config_status_file(config_status_file_path: Path) -> None:
     try:
         config_status_file_path.unlink()
-    except FileNotFoundError:
+    except FileNotFounderror:
         pass
 
 
@@ -49,7 +49,7 @@ def remove_allure_reports() -> None:
         filepath = os.path.join("tests/reports", filename)
         try:
             shutil.rmtree(filepath)
-        except OSError:
+        except OSerror:
             os.remove(filepath)
 
 
@@ -63,18 +63,18 @@ def remove_local_files_created_for_upload() -> None:
         dir_file_names = os.listdir(path)
 
         for file_name in dir_file_names:
-            if file_name[:20] == "co_python_tests_file":
+            if file_name[:20] == "d_python_tests_file":
                 created_file_path = path + file_name
                 os.remove(created_file_path)
 
 
-@retry(exceptions=AssertionError, tries=3)
+@retry(exceptions=Assertionerror, tries=3)
 def clean_env_properties_file() -> None:
     with open("tests/reports/environment.properties", "w"):
         "creating empty env file"
     with open("tests/reports/environment.properties", "r") as f:
         if f.read(1):
-            raise AssertionError
+            raise Assertionerror
 
 
 def get_mediatype(extension: str) -> str:

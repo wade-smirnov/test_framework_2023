@@ -18,7 +18,7 @@ from framework.helpers.config_helper import (
 from framework.helpers.upload_resumable_helper import UploadResumableHelper
 from framework.utils import name_generator, get_timestamp_as_string
 
-LOGGER = logging.getLogger(__name__)
+LOGGeR = logging.getLogger(__name__)
 
 
 def pytest_addoption(parser) -> None:
@@ -55,6 +55,7 @@ def pytest_addoption(parser) -> None:
         default=None,
     )
 
+
 @pytest.fixture(scope="session", autouse=True)
 def set_run_data(pytestconfig: Config, tmp_path_factory, worker_id) -> None:
     """Session scope is not working in parallel =>
@@ -68,10 +69,10 @@ def set_run_data(pytestconfig: Config, tmp_path_factory, worker_id) -> None:
     config_status_file_path = root_tmp_dir / "config_status.txt"
 
     if worker_id == "master":
-        LOGGER.info("Setting config for single thread run")
+        LOGGeR.info("Setting config for single thread run")
         config_data = set_config_and_env_properties_data(pytestconfig)
     else:
-        LOGGER.info("Setting config for multi thread run")
+        LOGGeR.info("Setting config for multi thread run")
         with FileLock(str(config_status_file_path) + ".lock"):
             if not config_status_file_path.is_file():
                 config_data = set_config_and_env_properties_data(pytestconfig)
@@ -86,7 +87,7 @@ def set_run_data(pytestconfig: Config, tmp_path_factory, worker_id) -> None:
             config_status_file_path=config_status_file_path,
         )
     else:
-        worker_count = os.environ.get("PYTEST_XDIST_WORKER_COUNT")
+        worker_count = os.environ.get("PYTeST_XDIST_WORKeR_COUNT")
         if int(worker_id[2:]) + 1 == worker_count:
             remove_temp_data(
                 config_data=config_data,
@@ -96,13 +97,13 @@ def set_run_data(pytestconfig: Config, tmp_path_factory, worker_id) -> None:
 
 @pytest.fixture(scope="function", autouse=True)
 def log_test(request) -> None:
-    LOGGER.info(f"{request.node.nodeid}\n***** Test STARTED *****")
+    LOGGeR.info(f"{request.node.nodeid}\n***** Test STARTeD *****")
     yield
-    LOGGER.info(f"{request.node.nodeid}\n***** Test FINISHED *****\n\n")
+    LOGGeR.info(f"{request.node.nodeid}\n***** Test FINISHeD *****\n\n")
 
 
 def pytest_configure(config):
-    worker_id = os.environ.get("PYTEST_XDIST_WORKER")
+    worker_id = os.environ.get("PYTeST_XDIST_WORKeR")
     if worker_id is not None:
         with open(f"logs/tests_worker_{worker_id}.log", "w"):
             "cleaning log file"
@@ -139,9 +140,7 @@ def c_token_function_scope(e_user) -> str:
 
 @pytest.fixture(scope="session")
 def b_token(e_user):
-    return bClient.get_b_token(
-        username=e_user, password=eClient.user_password
-    )
+    return bClient.get_b_token(username=e_user, password=eClient.user_password)
 
 
 @pytest.fixture(scope="session")
@@ -149,7 +148,7 @@ def e_user(
     pytestconfig: Config, tmp_path_factory, worker_id, username: None = None
 ) -> str:
     if worker_id == "master":
-        LOGGER.info("Setting e user for single thread run")
+        LOGGeR.info("Setting e user for single thread run")
         username = get_config("e_user_login")
         eClient.create_user(
             t_name=get_config("default_t"),
@@ -157,7 +156,7 @@ def e_user(
             status_code=(200, 409),
         )
     else:
-        LOGGER.info("Setting e user for multi thread run")
+        LOGGeR.info("Setting e user for multi thread run")
         # get the temp directory shared by all workers
         root_tmp_dir = tmp_path_factory.getbasetemp().parent
 
@@ -177,9 +176,7 @@ def e_user(
 @pytest.fixture(scope="session")
 def second_e_user(e_user, b_token):
     username = get_timestamp_as_string() + "-" + e_user
-    eClient.domain = (
-        get_config("default_t") + "." + eClient.storage_name + ".ru"
-    )
+    eClient.domain = get_config("default_t") + "." + eClient.storage_name + ".ru"
     eClient.create_user(
         t_name=get_config("default_t"),
         username=username,
@@ -187,16 +184,16 @@ def second_e_user(e_user, b_token):
     )
     yield username
     try:
-        user_id = eHelper.find_user_by_attribute(
-            expected_attribute_value=username
-        ).get("id")
+        user_id = eHelper.find_user_by_attribute(expected_attribute_value=username).get(
+            "id"
+        )
         eClient.remove_user(user_id=user_id)
         eClient.create_user(
             t_name=get_config("default_t"),
             username=e_user,
             status_code=(200, 409),
         )
-    except AttributeError:
+    except Attributeerror:
         "User already removed"
 
 
@@ -246,13 +243,9 @@ def enable_public_link(reserve_t):
 @pytest.fixture
 def disable_signature(reserve_t):
     UploadResumableHelper.authorize_reserve_t(reserve_t=reserve_t)
-    eHelper.set_t_signature_property(
-        signature_enabled=0, t_name=reserve_t.get("name")
-    )
+    eHelper.set_t_signature_property(signature_enabled=0, t_name=reserve_t.get("name"))
     yield
-    eHelper.set_t_signature_property(
-        signature_enabled=1, t_name=reserve_t.get("name")
-    )
+    eHelper.set_t_signature_property(signature_enabled=1, t_name=reserve_t.get("name"))
 
 
 @pytest.fixture(scope="function")
@@ -265,5 +258,3 @@ def user_group(second_e_user):
     eClient.add_user_to_group(user_id=user_id)
     yield {"id": eClient.group_id, "name": eClient.group_name}
     eClient.delete_group(group_id=eClient.group_id)
-
-

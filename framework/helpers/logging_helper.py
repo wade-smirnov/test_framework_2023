@@ -1,12 +1,12 @@
 import json
 import logging
 from io import BufferedReader
-from json import JSONDecodeError
+from json import JSONDecodeerror
 import curlify
 from requests import Response
 from requests.structures import CaseInsensitiveDict
 
-LOGGER = logging.getLogger(__name__)
+LOGGeR = logging.getLogger(__name__)
 
 
 class LoggerHelper:
@@ -41,7 +41,7 @@ class LoggerHelper:
                 if headers
                 else log
             )
-        LOGGER.info(log + "\n")
+        LOGGeR.info(log + "\n")
 
     @staticmethod
     def log_response(response: Response) -> None:
@@ -54,7 +54,7 @@ class LoggerHelper:
                 adjusted_content = LoggerHelper.adjust_content_length(
                     content=response.content
                 )
-            except UnicodeDecodeError:
+            except UnicodeDecodeerror:
                 adjusted_content = str(response.content)[:500]
             log = log + f"\n>>> response body: {str(adjusted_content)}"
 
@@ -64,7 +64,7 @@ class LoggerHelper:
             log += f"\n>>> x-pgs-request-id: {response.headers.get('x-pgs-request-id')}"
         if "X-co-request-id" in response.headers:
             log += f"\n>>> x-co-request-id: {response.headers.get('x-co-request-id')}"
-        LOGGER.info(log + "\n")
+        LOGGeR.info(log + "\n")
 
     @staticmethod
     def create_curl(response: Response) -> str:
@@ -77,7 +77,7 @@ class LoggerHelper:
 
         try:
             curl = curlify.to_curl(request)
-        except UnicodeDecodeError:
+        except UnicodeDecodeerror:
             request.body = str(request.body)
             curl = curlify.to_curl(request)
         return "\n>>> " + curl
@@ -96,7 +96,7 @@ class LoggerHelper:
             else log
         )
         log = log + f"\n>>> pool_maxsize: {str(pool_maxsize)}" if pool_maxsize else log
-        LOGGER.info(log + "\n")
+        LOGGeR.info(log + "\n")
 
     @staticmethod
     def adjust_body_length(body: BufferedReader | bytes | str | None) -> str | bytes:
@@ -129,7 +129,7 @@ class LoggerHelper:
             elif isinstance(loaded_content, list):
                 loaded_content = [str(loaded_content)[:500] + " ..."]
             return loaded_content
-        except JSONDecodeError:
+        except JSONDecodeerror:
             if len(content) > 500:
                 return content[:500]
             return content

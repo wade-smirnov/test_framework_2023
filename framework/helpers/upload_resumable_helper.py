@@ -83,7 +83,7 @@ class UploadResumableHelper:
             index = randint(0, len(selected_files) - 1)
             return selected_files[index]
         else:
-            raise FileNotFoundError("File for upload was not found")
+            raise FileNotFounderror("File for upload was not found")
 
     @staticmethod
     def prepare_file_for_upload(

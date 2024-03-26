@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from framework.clients.d_client import CoClient
+from framework.clients.d_client import Client
 from framework.helpers.common_helpers import get_mediatype
 from framework.helpers.upload_resumable_helper import UploadResumableHelper
 from framework.utils import name_generator
@@ -10,7 +10,7 @@ from framework.verificators.signature_verificator import SignatureVerificator
 
 
 @allure.title("Test embedded and detached signatures on file at the same time")
-class TestEmbeddedAndDetachedSignatureOnFile:
+class TestembeddedAndDetachedSignatureOnFile:
     @pytest.mark.skip  # 9307
     @pytest.mark.parametrize("password_protected", [True])
     @pytest.mark.parametrize("extension", [".odt", ".xlsx", ".docx"])
@@ -39,19 +39,19 @@ class TestEmbeddedAndDetachedSignatureOnFile:
                 media_type=get_mediatype(extension=extension),
             )
             with allure.step("Check signed properties"):
-                response_json = CoClient.get_file_by_id(file_id).json()
+                response_json = Client.get_file_by_id(file_id).json()
                 assert (
-                    response_json.get("file").get("signatureInfo").get("hasEmbedded")
+                    response_json.get("file").get("signatureInfo").get("hasembedded")
                 ), "File's embedded signature is missing"
                 SignatureVerificator.check_detached_signature_property_setup(
                     file_id=file_id, sig_file_id=sig_file_id
                 )
 
             with allure.step("Removing detached signature"):
-                CoClient.delete_object(object_id=sig_file_id)
-                response_json = CoClient.get_file_by_id(file_id).json()
+                Client.delete_object(object_id=sig_file_id)
+                response_json = Client.get_file_by_id(file_id).json()
                 assert (
-                    response_json.get("file").get("signatureInfo").get("hasEmbedded")
+                    response_json.get("file").get("signatureInfo").get("hasembedded")
                 ), "File's embedded signature is missing"
                 assert (
                     not response_json.get("file")
@@ -60,7 +60,7 @@ class TestEmbeddedAndDetachedSignatureOnFile:
                 ), "File's detached signature is present"
 
             with allure.step("Post-requisites"):
-                CoClient.delete_object(object_id=file_id)
+                Client.delete_object(object_id=file_id)
 
     @pytest.mark.skip  # SRV-9307
     @pytest.mark.parametrize("password_protected", [False])
@@ -90,19 +90,19 @@ class TestEmbeddedAndDetachedSignatureOnFile:
                 media_type=get_mediatype(extension=extension),
             )
             with allure.step("Check signed properties"):
-                response_json = CoClient.get_file_by_id(file_id).json()
+                response_json = Client.get_file_by_id(file_id).json()
                 assert (
-                    response_json.get("file").get("signatureInfo").get("hasEmbedded")
+                    response_json.get("file").get("signatureInfo").get("hasembedded")
                 ), "File's embedded signature is missing"
                 SignatureVerificator.check_detached_signature_property_setup(
                     file_id=file_id, sig_file_id=sig_file_id
                 )
 
             with allure.step("Removing detached signature"):
-                CoClient.delete_object(object_id=sig_file_id)
-                response_json = CoClient.get_file_by_id(file_id).json()
+                Client.delete_object(object_id=sig_file_id)
+                response_json = Client.get_file_by_id(file_id).json()
                 assert (
-                    response_json.get("file").get("signatureInfo").get("hasEmbedded")
+                    response_json.get("file").get("signatureInfo").get("hasembedded")
                 ), "File's embedded signature is missing"
                 assert (
                     not response_json.get("file")
@@ -111,4 +111,4 @@ class TestEmbeddedAndDetachedSignatureOnFile:
                 ), "File's detached signature is present"
 
             with allure.step("Post-requisites"):
-                CoClient.delete_object(object_id=file_id)
+                Client.delete_object(object_id=file_id)

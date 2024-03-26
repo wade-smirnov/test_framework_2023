@@ -64,7 +64,7 @@ class ApiClient(metaclass=Singleton):
         headers: dict | None = None,
         files: dict | None = None,
     ) -> requests.Response:
-        headers = headers | {"User-Agent": "co_python_tests"} if headers else headers
+        headers = headers | {"User-Agent": "d_python_tests"} if headers else headers
         url = url or cls.url + path
         LoggerHelper.log_request(
             method="post", url=url, data=data, headers=headers, json=json, params=params
@@ -92,7 +92,7 @@ class ApiClient(metaclass=Singleton):
         params: dict | None = None,
         headers: dict | None = None,
     ) -> requests.Response:
-        headers = headers | {"User-Agent": "co_python_tests"} if headers else headers
+        headers = headers | {"User-Agent": "d_python_tests"} if headers else headers
         url = url or cls.url + path
         LoggerHelper.log_request(
             method="patch",
@@ -124,7 +124,7 @@ class ApiClient(metaclass=Singleton):
         params: dict | None = None,
         headers: dict | None = None,
     ) -> requests.Response:
-        headers = headers | {"User-Agent": "co_python_tests"} if headers else headers
+        headers = headers | {"User-Agent": "d_python_tests"} if headers else headers
         url = url or cls.url + path
         LoggerHelper.log_request(
             method="head", url=url, data=data, headers=headers, json=json, params=params
@@ -151,7 +151,7 @@ class ApiClient(metaclass=Singleton):
         params: dict | None = None,
         headers: dict | None = None,
     ) -> requests.Response:
-        headers = headers | {"User-Agent": "co_python_tests"} if headers else headers
+        headers = headers | {"User-Agent": "d_python_tests"} if headers else headers
         url = url or cls.url + path
         LoggerHelper.log_request(
             method="put", url=url, data=data, headers=headers, json=json, params=params
@@ -171,7 +171,7 @@ class ApiClient(metaclass=Singleton):
         data: dict | None = None,
         headers: dict | None = None,
     ) -> requests.Response:
-        headers = headers | {"User-Agent": "co_python_tests"} if headers else headers
+        headers = headers | {"User-Agent": "d_python_tests"} if headers else headers
         url = url or cls.url + path
         LoggerHelper.log_request(method="delete", url=url, headers=headers, data=data)
         response = cls.session.request(
@@ -191,7 +191,7 @@ class ApiClient(metaclass=Singleton):
         params: dict | None = None,
         headers: dict | None = None,
     ) -> requests.Response:
-        headers = headers | {"User-Agent": "co_python_tests"} if headers else headers
+        headers = headers | {"User-Agent": "d_python_tests"} if headers else headers
         url = url or cls.url + path
         LoggerHelper.log_request(
             method="options",
