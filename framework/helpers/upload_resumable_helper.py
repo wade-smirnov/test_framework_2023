@@ -2,7 +2,6 @@ import os
 import time
 from random import randint
 from retry import retry
-from framework.clients.b_client import BClient
 from framework.clients.d_client import Client
 from framework.helpers.common_helpers import get_mediatype
 from framework.utils import generate_file_name
@@ -108,22 +107,11 @@ class UploadResumableHelper:
     def get_file_path_by_extension(
         extension: str,
         signature: str | None = None,
-        correct_format: bool = True,
         password_protected: bool = False,
     ) -> str:
         """Find file, return path to it"""
         if signature == "embedded" and password_protected:
             path = "framework/data/files/embedded_signature/password_protected/"
-        elif signature == "embedded":
-            path = "framework/data/files/embedded_signature/"
-        elif signature == "detached" and password_protected:
-            path = "framework/data/files/detached_signature/password_protected/"
-        elif signature == "detached" and correct_format:
-            path = "framework/data/files/detached_signature/correct_format/"
-        elif signature == "detached":
-            path = "framework/data/files/detached_signature/incorrect_format/"
-        elif signature == "both" and password_protected:
-            path = "framework/data/files/both_signatures/password_protected/"
         elif signature == "both":
             path = "framework/data/files/both_signatures/"
         else:
@@ -133,15 +121,3 @@ class UploadResumableHelper:
             path=path,
         )
         return path + filename
-
-    @staticmethod
-    def authorize_reserve_tenant(reserve_tenant: dict):
-        Client.post_auth(
-            login=reserve_tenant.get("username"),
-            password=reserve_tenant.get("user_password"),
-        )
-        Client.get_info()
-        BClient.get_aristotel_token(
-            username=reserve_tenant.get("username"),
-            password=reserve_tenant.get("user_password"),
-        )
