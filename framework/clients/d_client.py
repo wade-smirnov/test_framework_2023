@@ -30,7 +30,7 @@ class Client(ApiClient):
         login: str | None = None, password: str | None = None, status_code: int = 200
     ) -> dict:
         login = login or get_config("e_user_login")
-        password = password or get_config("tenant_user_password")
+        password = password or get_config("t_user_password")
         path = "/login"
         url = Client.auth_url + path
         headers = {"Content-Type": "application/json", "Accept": "application/json"}

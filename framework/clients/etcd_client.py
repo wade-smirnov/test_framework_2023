@@ -4,7 +4,7 @@ from framework.clients.api_client import ApiClient
 
 class etcdClient(ApiClient):
     url: str
-    tenant_url: str
+    t_url: str
     d_internal_sso_username: str
     d_internal_sso_password: str
 
@@ -13,7 +13,7 @@ class etcdClient(ApiClient):
         from framework.helpers.config_helper import get_config
 
         etcdClient.url = get_config("etcd_browser_url")
-        etcdClient.tenant_url = get_config("etcd_tenant_url")
+        etcdClient.t_url = get_config("etcd_t_url")
         etcdClient.d_internal_sso_username = get_config("d_internal_sso_username")
         etcdClient.d_internal_sso_password = get_config("d_internal_sso_password")
 
@@ -25,7 +25,7 @@ class etcdClient(ApiClient):
         d_internal_sso_password: str | None = None,
     ) -> None:
         etcdClient.url = f"http://{stand_name}.{domain}:8001"
-        etcdClient.tenant_url = f"http://etcd.{stand_name}.{domain}:81"
+        etcdClient.t_url = f"http://etcd.{stand_name}.{domain}:81"
         d_internal_sso_username = (
             d_internal_sso_username or etcdClient.d_internal_sso_username
         )

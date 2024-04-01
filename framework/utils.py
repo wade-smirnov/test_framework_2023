@@ -30,8 +30,8 @@ def generate_email(domain: str) -> str:
     return generate_word() + "@" + domain
 
 
-def generate_username(tenant_name: str, storage_name: str):
-    return generate_word(prefix=False) + "@" + tenant_name + "." + storage_name + ".ru"
+def generate_username(t_name: str, storage_name: str):
+    return generate_word(prefix=False) + "@" + t_name + "." + storage_name + ".ru"
 
 
 def generate_word(prefix: bool = True) -> str:

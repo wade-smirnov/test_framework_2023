@@ -14,7 +14,7 @@ class BClient(ApiClient):
     @staticmethod
     def update_data_from_config() -> None:
         BClient.username = get_config("e_user_login")
-        BClient.user_password = get_config("tenant_user_password")
+        BClient.user_password = get_config("t_user_password")
         BClient.url = get_config("aristotel_url")
 
     @staticmethod

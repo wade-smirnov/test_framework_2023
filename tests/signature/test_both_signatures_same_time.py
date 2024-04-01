@@ -11,7 +11,6 @@ from framework.verificators.signature_verificator import SignatureVerificator
 
 @allure.title("Test embedded and detached signatures on file at the same time")
 class TestembeddedAndDetachedSignatureOnFile:
-    @pytest.mark.skip  # 9307
     @pytest.mark.parametrize("password_protected", [True])
     @pytest.mark.parametrize("extension", [".odt", ".xlsx", ".docx"])
     @allure.testcase("Test setup of both signatures properties on one file")
@@ -62,7 +61,6 @@ class TestembeddedAndDetachedSignatureOnFile:
             with allure.step("Post-requisites"):
                 Client.delete_object(object_id=file_id)
 
-    @pytest.mark.skip  # SRV-9307
     @pytest.mark.parametrize("password_protected", [False])
     @pytest.mark.parametrize("extension", [".odt", ".xlsx", ".docx"])
     @allure.testcase("Test setup of both signatures properties on one file")

@@ -20,7 +20,7 @@ def prepare_data_for_config(pytestconfig: Config) -> dict:
     data["stand_name"] = stand_name or get_config("stand_name")
 
     # Preparing url data to add/update in config
-    data["d_tenant_admin_url"] = f"https://admin-{stand_name}.devoffice.ru/#/login"
+    data["d_t_admin_url"] = f"https://admin-{stand_name}.devoffice.ru/#/login"
     return data
 
 
